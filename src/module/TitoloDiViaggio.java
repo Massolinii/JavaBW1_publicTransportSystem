@@ -1,7 +1,9 @@
 package module;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -29,19 +31,21 @@ public class TitoloDiViaggio {
 	@Column (nullable = false)
 	private LocalDateTime data_emissione ;
 	
+	
+//	public void FormatDate(LocalDateTime date) {
+//		SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd/MM/yyy");
+//		simpleDateFormat.
+//	}
+	
 	public TitoloDiViaggio() {
 		super();
+		this.data_emissione = LocalDateTime.now();
 	}
-
-	public TitoloDiViaggio(LocalDateTime data_emissione) {
-		super();
-		this.data_emissione = data_emissione;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "TitoloDiViaggio [biglietto_id=" + biglietto_id + ", valido=" + valido + ", data_emissione="
-				+ data_emissione + "]";
+				+ data_emissione.format(DateTimeFormatter.ISO_DATE) + "]";
 	}
 
 	public Integer getBiglietto_id() {

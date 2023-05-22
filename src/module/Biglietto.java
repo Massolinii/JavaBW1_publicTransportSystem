@@ -15,10 +15,7 @@ public class Biglietto extends TitoloDiViaggio {
 	public Biglietto() {
 		super();
 	}
-	
-	public Biglietto(LocalDateTime data_emissione) {
-		super(data_emissione);
-	}
+
 	
 	@Override
 	public String toString() {
