@@ -10,6 +10,6 @@ import Enums.DurataAbbonamento;
 @DiscriminatorValue(value = "abbonamento")
 public class Abbonamento extends TitoloDiViaggio {
 
-	@Column (nullable = false)
+	@Column
 	protected DurataAbbonamento durata;
 }

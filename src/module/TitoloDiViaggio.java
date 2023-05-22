@@ -1,6 +1,7 @@
 package module;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -26,7 +27,22 @@ public class TitoloDiViaggio {
 	private boolean valido = true;
 	
 	@Column (nullable = false)
-	private LocalDate data_emissione;
+	private LocalDateTime data_emissione ;
+	
+	public TitoloDiViaggio() {
+		super();
+	}
+
+	public TitoloDiViaggio(LocalDateTime data_emissione) {
+		super();
+		this.data_emissione = data_emissione;
+	}
+
+	@Override
+	public String toString() {
+		return "TitoloDiViaggio [biglietto_id=" + biglietto_id + ", valido=" + valido + ", data_emissione="
+				+ data_emissione + "]";
+	}
 
 	
 }
