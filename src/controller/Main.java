@@ -17,8 +17,10 @@ public class Main {
 		System.out.println(b1.toString()); 
 		try {
 			bigliettoDAO.save(b1);
+			bigliettoDAO.convalida(1);
+			bigliettoDAO.convalida(1);
+			bigliettoDAO.convalida(2);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

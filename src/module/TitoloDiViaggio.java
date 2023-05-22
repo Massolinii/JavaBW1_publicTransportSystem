@@ -44,5 +44,30 @@ public class TitoloDiViaggio {
 				+ data_emissione + "]";
 	}
 
+	public Integer getBiglietto_id() {
+		return biglietto_id;
+	}
+
+	public void setBiglietto_id(Integer biglietto_id) {
+		this.biglietto_id = biglietto_id;
+	}
+
+	public boolean getValido() {
+		return valido;
+	}
+
+	public void setValido(boolean valido) {
+		this.valido = valido;
+	}
+
+	public LocalDateTime getData_emissione() {
+		return data_emissione;
+	}
+
+	public void setData_emissione(LocalDateTime data_emissione) {
+		this.data_emissione = data_emissione;
+	}
+
+	
 	
 }

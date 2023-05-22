@@ -4,7 +4,7 @@ import module.Biglietto;
 
 public interface IBigliettoDAO {
 
-		public void save(Biglietto e);
-		public void convalida(Biglietto e);
+		public void save(Biglietto bi);
+		public void convalida(Integer id);
 
 }
