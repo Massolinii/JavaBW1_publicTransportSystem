@@ -1,6 +1,6 @@
 package Enums;
 
-public enum Funzione {
+public enum FunzioneDistributore {
 	IN_SERVIZIO,
 	FUORI_SERVIZIO
 	

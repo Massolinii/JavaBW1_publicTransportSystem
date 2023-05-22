@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import Enums.Funzione;
+import Enums.FunzioneDistributore;
 
 public class Distributore extends PuntiVendita {
 
@@ -19,9 +19,9 @@ public class Distributore extends PuntiVendita {
 	
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-	protected Funzione funzione;
+	protected FunzioneDistributore funzione;
 
-	public Distributore(List<Biglietto> biglietti_stampati, String localita, Funzione funzione) {
+	public Distributore(List<Biglietto> biglietti_stampati, String localita, FunzioneDistributore funzione) {
 		super(biglietti_stampati, localita);
 		this.funzione = funzione;
 	}
