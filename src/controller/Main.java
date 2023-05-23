@@ -31,7 +31,7 @@ public class Main {
 //			ABBONAMENTI
 			abbonamentoDAO.save(a1);
 //			abbonamentoDAO.checkScadenza(1);
-			abbonamentoDAO.rinnovo(1);
+			// abbonamentoDAO.rinnovo(1);
 
 		} catch (Exception e) {
 			e.printStackTrace();

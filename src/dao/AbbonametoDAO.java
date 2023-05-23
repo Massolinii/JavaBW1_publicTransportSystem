@@ -2,6 +2,7 @@ package dao;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
 
@@ -15,8 +16,9 @@ public class AbbonametoDAO implements IAbbonamentiDAO {
 	public void save(Abbonamento a) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
-			a.setData_emissione(LocalDateTime.now());
-//			a.setData_emissione(LocalDateTime.of(LocalDate.of(2023, 3, 10), LocalTime.now()));
+
+			a.setData_emissione(dateGenerator());
+
 			// switch Mensile Settimanale {false:rinnovo}
 			setScadenza(a, false);
 			em.getTransaction().begin();
@@ -85,6 +87,23 @@ public class AbbonametoDAO implements IAbbonamentiDAO {
 			em.close();
 		}
 		return null;
+	}
+
+	public LocalDateTime dateGenerator() throws Exception {
+		Random ry = new Random();
+		Random rm = new Random();
+		Random rd = new Random();
+		int year = 1969 + ry.nextInt(2015 - 1969 + 1);
+		int month = 1 + rm.nextInt(12);
+		int day = 1 + rm.nextInt(31);
+		if (month == 2 && day > 28) {
+			day = day - 3;
+		} else {
+			if ((month % 2 == 0 && month != 8) && day == 31) {
+				day = day - 1;
+			}
+		}
+		return LocalDateTime.of(year, month, month, 0, 0);
 	}
 
 	public void setScadenza(Abbonamento a, Boolean rinnovo) {
