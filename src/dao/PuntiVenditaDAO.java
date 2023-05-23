@@ -16,10 +16,10 @@ public class PuntiVenditaDAO implements IPuntoVenditaDAO {
 			em.getTransaction().begin();
 			em.persist(pv);
 			em.getTransaction().commit();
-			System.out.println("Distributore aggiunto nel DB!");
+			System.out.println("Punto vendita aggiunto nel DB!");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
-			System.out.println("Errore nell'aggiunta del Distributore nel DB." + e);
+			System.out.println("Errore nell'aggiunta del punto vendita nel DB." + e);
 		} finally {
 			em.close();
 		}
@@ -40,10 +40,10 @@ public class PuntiVenditaDAO implements IPuntoVenditaDAO {
 			}
 			em.merge(pv);
 			em.getTransaction().commit();
-			System.out.println("Distributore " + pv.getPunto_vendita_id() + " è " + pv.getFunzione());
+			System.out.println("Punto vendita " + pv.getPunto_vendita_id() + " è " + pv.getFunzione());
 		} catch (Exception e) {
 			em.getTransaction().rollback();
-			System.out.println("Errore durante il cambiodi stato del Distributore nel DB." + id + " " + e);
+			System.out.println("Errore durante il cambiodi stato del Punto vendita nel DB." + id + " " + e);
 		} finally {
 			em.close();
 		}

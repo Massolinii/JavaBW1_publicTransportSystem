@@ -2,6 +2,11 @@ package module;
 
 import java.time.LocalTime;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue(value = "rivenditore")
 public class Rivenditore extends PuntiVendita {
 
 	private String nome;
@@ -10,15 +15,15 @@ public class Rivenditore extends PuntiVendita {
 
 	private LocalTime orario_chiusura;
 
+	public Rivenditore() {
+		super();
+	}
+
 	public Rivenditore(String localita, String nome, LocalTime orario_apertura, LocalTime orario_chiusura) {
 		super(localita);
 		this.nome = nome;
 		this.orario_apertura = orario_apertura;
 		this.orario_chiusura = orario_chiusura;
-	}
-
-	public Rivenditore(String localita) {
-		super();
 	}
 
 	public String getNome() {

@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -20,7 +21,7 @@ import javax.persistence.Table;
 public class TitoloDiViaggio {
 
 	@Id
-	@GeneratedValue // (strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer biglietto_id;
 
 	@Column(nullable = false)
@@ -36,9 +37,9 @@ public class TitoloDiViaggio {
 //	@ManyToOne
 //	private PuntiVendita puntoDiEmissione;
 
-	public TitoloDiViaggio(PuntiVendita puntoDiEmissione) {
+	public TitoloDiViaggio(PuntiVendita punto_emissione) {
 		super();
-//		this.puntoDiEmissione = puntoDiEmissione;
+		this.punto_emissione = punto_emissione;
 		this.data_emissione = LocalDateTime.now();
 	}
 

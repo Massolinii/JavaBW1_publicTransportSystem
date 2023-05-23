@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 import Enums.DurataAbbonamento;
 
@@ -13,6 +15,7 @@ import Enums.DurataAbbonamento;
 public class Abbonamento extends TitoloDiViaggio {
 
 	@Column
+	@Enumerated(EnumType.STRING)
 	protected DurataAbbonamento durata;
 
 	private LocalDateTime scadenza_abbonameto;

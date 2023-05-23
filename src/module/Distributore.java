@@ -12,17 +12,17 @@ import Enums.FunzioneDistributore;
 @DiscriminatorValue(value = "distributore")
 public class Distributore extends PuntiVendita {
 
-	@Column(nullable = false)
+	@Column
 	@Enumerated(EnumType.STRING)
 	protected FunzioneDistributore funzione;
+
+	public Distributore() {
+		super();
+	}
 
 	public Distributore(String localita, FunzioneDistributore funzione) {
 		super(localita);
 		this.funzione = funzione;
-	}
-
-	public Distributore() {
-		super();
 	}
 
 	public FunzioneDistributore getFunzione() {

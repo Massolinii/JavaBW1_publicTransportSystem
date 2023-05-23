@@ -18,7 +18,7 @@ public class AbbonametoDAO implements IAbbonamentiDAO {
 		try {
 
 			a.setData_emissione(dateGenerator());
-
+//			a.setData_emissione(LocalDateTime.now());
 			// switch Mensile Settimanale {false:rinnovo}
 			setScadenza(a, false);
 			em.getTransaction().begin();
@@ -75,7 +75,7 @@ public class AbbonametoDAO implements IAbbonamentiDAO {
 							+ a.getScadenza_abbonameto().format(DateTimeFormatter.ISO_DATE));
 					return true;
 				} else {
-//					System.out.println("Abbonamento SCADUTO!! ");
+					System.out.println("Abbonamento SCADUTO!! ");
 					return false;
 				}
 			} else {
@@ -95,7 +95,7 @@ public class AbbonametoDAO implements IAbbonamentiDAO {
 		Random rd = new Random();
 		int year = 1969 + ry.nextInt(2015 - 1969 + 1);
 		int month = 1 + rm.nextInt(12);
-		int day = 1 + rm.nextInt(31);
+		int day = 1 + rd.nextInt(31);
 		if (month == 2 && day > 28) {
 			day = day - 3;
 		} else {
@@ -103,7 +103,8 @@ public class AbbonametoDAO implements IAbbonamentiDAO {
 				day = day - 1;
 			}
 		}
-		return LocalDateTime.of(year, month, month, 0, 0);
+
+		return LocalDateTime.of(year, month, day, 0, 0);
 	}
 
 	public void setScadenza(Abbonamento a, Boolean rinnovo) {
