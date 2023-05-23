@@ -4,19 +4,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import Enums.DurataAbbonamento;
-import net.bytebuddy.asm.Advice.Local;
 
 @Entity
-@DiscriminatorValue(value = "abbonamento")
+//@DiscriminatorValue(value = "abbonamento")
 public class Abbonamento extends TitoloDiViaggio {
 
 	@Column
 	protected DurataAbbonamento durata;
-	
+
 	private LocalDateTime scadenza_abbonameto;
 
 	public Abbonamento() {
@@ -24,9 +22,10 @@ public class Abbonamento extends TitoloDiViaggio {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Abbonamento(DurataAbbonamento durata) {
-		super();
+	public Abbonamento(PuntiVendita puntoDiEmissione, DurataAbbonamento durata) {
+		super(puntoDiEmissione);
 		this.durata = durata;
+		// TODO Auto-generated constructor stub
 	}
 
 	public DurataAbbonamento getDurata() {
@@ -47,8 +46,8 @@ public class Abbonamento extends TitoloDiViaggio {
 
 	@Override
 	public String toString() {
-		return "Abbonamento [durata=" + durata + ", scadenza="+this.scadenza_abbonameto.format(DateTimeFormatter.ISO_DATE)+"]["+super.toString()+"]";
+		return "Abbonamento [durata=" + durata + ", scadenza="
+				+ this.scadenza_abbonameto.format(DateTimeFormatter.ISO_DATE) + "][" + super.toString() + "]";
 	}
-
 
 }

@@ -15,8 +15,13 @@ public class Tessera {
 	private Integer tessera_id;
 
 	@Column(nullable = false)
-	@OneToOne
-	private Utente utente;
+	private String nome;
+
+	@Column(nullable = false)
+	private String cognome;
+
+	@Column(nullable = false)
+	private LocalDate birthday;
 
 	@Column(nullable = false)
 	private LocalDate data_inizio;
@@ -32,11 +37,12 @@ public class Tessera {
 		super();
 	}
 
-	public Tessera(Integer tessera_id, Utente utente, LocalDate data_inizio, LocalDate data_scadenza,
+	public Tessera(String nome, String cognome, LocalDate birthday, LocalDate data_inizio, LocalDate data_scadenza,
 			Abbonamento abbonamento) {
 		super();
-		this.tessera_id = tessera_id;
-		this.utente = utente;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.birthday = birthday;
 		this.data_inizio = data_inizio;
 		this.data_scadenza = data_inizio.plusYears(1);
 		this.abbonamento = abbonamento;
@@ -44,8 +50,9 @@ public class Tessera {
 
 	@Override
 	public String toString() {
-		return "Tessera [tessera_id=" + tessera_id + ", utente=" + utente + ", data_inizio=" + data_inizio
-				+ ", data_scadenza=" + data_scadenza + "]";
+		return "Tessera [tessera_id=" + tessera_id + ", nome=" + nome + ", cognome=" + cognome + ", birthday="
+				+ birthday + ", data_inizio=" + data_inizio + ", data_scadenza=" + data_scadenza + ", abbonamento="
+				+ abbonamento + "]";
 	}
 
 }

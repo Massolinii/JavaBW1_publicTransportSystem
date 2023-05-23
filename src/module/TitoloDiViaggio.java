@@ -1,7 +1,5 @@
 package module;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -9,10 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,26 +20,32 @@ import javax.persistence.Table;
 public class TitoloDiViaggio {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue // (strategy = GenerationType.IDENTITY)
 	private Integer biglietto_id;
-	
-	@Column (nullable = false)
+
+	@Column(nullable = false)
 	private boolean valido = true;
-	
-	@Column (nullable = false)
-	private LocalDateTime data_emissione ;
-	
-	
-//	public void FormatDate(LocalDateTime date) {
-//		SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd/MM/yyy");
-//		simpleDateFormat.
-//	}
-	
-	public TitoloDiViaggio() {
+
+	@Column(nullable = false)
+	private LocalDateTime data_emissione;
+
+	@ManyToOne
+	private PuntiVendita punto_emissione;
+
+//	@Column(nullable = false)
+//	@ManyToOne
+//	private PuntiVendita puntoDiEmissione;
+
+	public TitoloDiViaggio(PuntiVendita puntoDiEmissione) {
 		super();
+//		this.puntoDiEmissione = puntoDiEmissione;
 		this.data_emissione = LocalDateTime.now();
 	}
-	
+
+	public TitoloDiViaggio() {
+		super();
+	}
+
 	@Override
 	public String toString() {
 		return "TitoloDiViaggio [biglietto_id=" + biglietto_id + ", valido=" + valido + ", data_emissione="
@@ -54,6 +58,14 @@ public class TitoloDiViaggio {
 
 	public void setBiglietto_id(Integer biglietto_id) {
 		this.biglietto_id = biglietto_id;
+	}
+
+	public PuntiVendita getPunto_emissione() {
+		return punto_emissione;
+	}
+
+	public void setPunto_emissione(PuntiVendita punto_emissione) {
+		this.punto_emissione = punto_emissione;
 	}
 
 	public boolean getValido() {
@@ -72,6 +84,4 @@ public class TitoloDiViaggio {
 		this.data_emissione = data_emissione;
 	}
 
-	
-	
 }

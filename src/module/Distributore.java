@@ -1,40 +1,41 @@
 package module;
 
-import java.util.List;
-
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 import Enums.FunzioneDistributore;
 
+@Entity
+@DiscriminatorValue(value = "distributore")
 public class Distributore extends PuntiVendita {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer cardId;
-	
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	protected FunzioneDistributore funzione;
 
-	public Distributore(List<Biglietto> biglietti_stampati, String localita, FunzioneDistributore funzione) {
-		super(biglietti_stampati, localita);
+	public Distributore(String localita, FunzioneDistributore funzione) {
+		super(localita);
 		this.funzione = funzione;
 	}
 
-	public Distributore(List<Biglietto> biglietti_stampati, String localita) {
-		super(biglietti_stampati, localita);
+	public Distributore() {
+		super();
+	}
+
+	public FunzioneDistributore getFunzione() {
+		return funzione;
+	}
+
+	public void setFunzione(FunzioneDistributore funzione) {
+		this.funzione = funzione;
 	}
 
 	@Override
 	public String toString() {
-		return "Distributore [cardId=" + cardId + ", funzione=" + funzione + "]";
+		return "Distributore [ funzione=" + funzione + "]" + super.toString();
 	}
-	
-	
 
 }

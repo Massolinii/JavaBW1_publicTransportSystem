@@ -1,26 +1,24 @@
 package module;
 
 import java.time.LocalTime;
-import java.util.List;
 
 public class Rivenditore extends PuntiVendita {
-	
+
 	private String nome;
 
 	private LocalTime orario_apertura;
-	
-	private LocalTime orario_chiusura = orario_apertura.plusHours(8);
 
-	public Rivenditore(List<Biglietto> biglietti_stampati, String localita, String nome, LocalTime orario_apertura,
-			LocalTime orario_chiusura) {
-		super(biglietti_stampati, localita);
+	private LocalTime orario_chiusura;
+
+	public Rivenditore(String localita, String nome, LocalTime orario_apertura, LocalTime orario_chiusura) {
+		super(localita);
 		this.nome = nome;
 		this.orario_apertura = orario_apertura;
 		this.orario_chiusura = orario_chiusura;
 	}
 
-	public Rivenditore(List<Biglietto> biglietti_stampati, String localita) {
-		super(biglietti_stampati, localita);
+	public Rivenditore(String localita) {
+		super();
 	}
 
 	public String getNome() {
@@ -50,10 +48,7 @@ public class Rivenditore extends PuntiVendita {
 	@Override
 	public String toString() {
 		return "Rivenditore [nome=" + nome + ", orario_apertura=" + orario_apertura + ", orario_chiusura="
-				+ orario_chiusura + "]";
+				+ orario_chiusura + "]" + super.toString();
 	}
-	
-	
-	
-	
+
 }

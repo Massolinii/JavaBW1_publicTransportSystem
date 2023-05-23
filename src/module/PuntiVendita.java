@@ -1,28 +1,33 @@
 package module;
 
-import java.util.List;
-
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "punti_vendita")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class PuntiVendita {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer punto_vendita_id;
-	
-	private List<Biglietto> biglietti_stampati;
-	
-	private String localita;
-	
 
-	public List<Biglietto> getBiglietti_stampati() {
-		return biglietti_stampati;
+	@Id
+	@GeneratedValue // (strategy = GenerationType.IDENTITY)
+	private Integer punto_vendita_id;
+
+	private String localita;
+
+	public Integer getPunto_vendita_id() {
+		return punto_vendita_id;
 	}
 
-	public void setBiglietti_stampati(List<Biglietto> biglietti_stampati) {
-		this.biglietti_stampati = biglietti_stampati;
+	public void setPunto_vendita_id(Integer punto_vendita_id) {
+		this.punto_vendita_id = punto_vendita_id;
+	}
+
+	public PuntiVendita() {
+		super();
 	}
 
 	public String getLocalita() {
@@ -33,14 +38,14 @@ public class PuntiVendita {
 		this.localita = localita;
 	}
 
-	public PuntiVendita(List<Biglietto> biglietti_stampati, String localita) {
+	public PuntiVendita(String localita) {
 		super();
-		this.biglietti_stampati = biglietti_stampati;
 		this.localita = localita;
 	}
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "PuntiVendita [punto_vendita_id=" + punto_vendita_id + ", localita=" + localita + "]";
+	}
 
 }
