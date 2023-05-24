@@ -1,6 +1,7 @@
 package controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -87,7 +88,6 @@ public class Main {
 		bigliettoDAO.save(b2);
 		bigliettoDAO.save(b3);
 		bigliettoDAO.save(b4);
-		bigliettoDAO.convalida(1);
 		Abbonamento abb1 = new Abbonamento(d1, DurataAbbonamento.MENSILE);
 		Abbonamento abb2 = new Abbonamento(d2, DurataAbbonamento.MENSILE);
 		Abbonamento abb3 = new Abbonamento(d2, DurataAbbonamento.SETTIMANALE);
@@ -110,18 +110,22 @@ public class Main {
 //		tesseraDAO.rinnovoTessera(3);
 
 //		Abbonamento ab1=new Abbonamento()
-		Bus bus1 = new Bus("DA523MF", 2, StatusMezzo.IN_SERVIZIO);
-		Bus bus2 = new Bus("BA923DZ", 10, StatusMezzo.FUORI_SERVIZIO);
-		Bus bus3 = new Bus("CF394AR", 20, StatusMezzo.IN_MANUTENZIONE, LocalDate.now());
-		Tram tram1 = new Tram("CF554AW", 5, StatusMezzo.IN_SERVIZIO);
-		Tram tram2 = new Tram("FB293SM", 30, StatusMezzo.IN_MANUTENZIONE, LocalDate.now());
-		Tram tram3 = new Tram("FG567SB", 50, StatusMezzo.FUORI_SERVIZIO);
+		Bus bus1 = new Bus("DA523MF", 2, StatusMezzo.IN_SERVIZIO, LocalDateTime.now(), LocalDateTime.now().plusHours(8));
+		Bus bus4 = new Bus("DZ523MF", 2, StatusMezzo.IN_SERVIZIO,LocalDateTime.now(), LocalDateTime.now().plusHours(8));
+		Bus bus2 = new Bus("BA923DZ", 10, StatusMezzo.FUORI_SERVIZIO,null,null);
+		Bus bus3 = new Bus("CF394AR", 20, StatusMezzo.IN_MANUTENZIONE,LocalDateTime.now(), LocalDateTime.now().plusDays(3));
+		Tram tram1 = new Tram("CF554AW", 5, StatusMezzo.IN_SERVIZIO, LocalDateTime.now(), LocalDateTime.now().plusHours(8));
+		Tram tram2 = new Tram("FB293SM", 30, StatusMezzo.IN_MANUTENZIONE,LocalDateTime.now(), LocalDateTime.now().plusDays(9));
+		Tram tram3 = new Tram("FG567SB", 50, StatusMezzo.FUORI_SERVIZIO,null,null);
+		Tram tram4 = new Tram("CF654AW", 5, StatusMezzo.IN_SERVIZIO, LocalDateTime.now(), LocalDateTime.now().plusHours(8));
 		parcoMezziDao.save(bus3);
 		parcoMezziDao.save(bus2);
 		parcoMezziDao.save(bus1);
 		parcoMezziDao.save(tram1);
 		parcoMezziDao.save(tram2);
 		parcoMezziDao.save(tram3);
+		parcoMezziDao.save(tram4);
+		parcoMezziDao.save(bus4);
 
 		Tratta tratta1 = new Tratta("corso Polli", "stazione Centrale", 20, 5);
 		Tratta tratta2 = new Tratta("corso Dante", "Porto", 15, 7);
@@ -131,12 +135,13 @@ public class Main {
 		trattaDAO.save(tratta2);
 		trattaDAO.save(tratta3);
 
-		RegistroAttivita a1 = new RegistroAttivita(tram3, tratta3);
-		RegistroAttivita a2 = new RegistroAttivita(tram3, tratta3);
-		RegistroAttivita a3 = new RegistroAttivita(tram3, tratta3);
-		RegistroAttivita a4 = new RegistroAttivita(tram2, tratta2);
-		RegistroAttivita a5 = new RegistroAttivita(tram2, tratta2);
-		RegistroAttivita a6 = new RegistroAttivita(tram2, tratta2);
+		RegistroAttivita a1 = new RegistroAttivita(tram1, tratta3);
+		RegistroAttivita a2 = new RegistroAttivita(tram1, tratta3);
+		RegistroAttivita a3 = new RegistroAttivita(tram1, tratta3);
+		RegistroAttivita a7 = new RegistroAttivita(tram3, tratta3);
+		RegistroAttivita a4 = new RegistroAttivita(bus1, tratta2);
+		RegistroAttivita a5 = new RegistroAttivita(bus1, tratta2);
+		RegistroAttivita a6 = new RegistroAttivita(bus1, tratta2);
 
 		registroAttivitaDAO.save(a1, 20);
 		registroAttivitaDAO.save(a2, 15);
@@ -144,9 +149,12 @@ public class Main {
 		registroAttivitaDAO.save(a4, 7);
 		registroAttivitaDAO.save(a5, 30);
 		registroAttivitaDAO.save(a6, 17);
-
-		List<RegistroAttivita> list = registroAttivitaDAO.calcolaCorseByMezzo("FG567SB", 3);
-		list.forEach(e -> System.out.println(e));
+		registroAttivitaDAO.save(a7, 27);
+		//----------------------------------------
+		bigliettoDAO.convalida(1,bus3);
+		bigliettoDAO.convalida(2,bus1);
+//		List<RegistroAttivita> list = registroAttivitaDAO.calcolaCorseByMezzo("FG567SB", 3);
+//		list.forEach(e -> System.out.println(e));
 	}
 
 }

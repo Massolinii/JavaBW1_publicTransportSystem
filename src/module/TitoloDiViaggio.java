@@ -33,9 +33,7 @@ public class TitoloDiViaggio {
 	@ManyToOne
 	private PuntiVendita punto_emissione;
 
-//	@Column(nullable = false)
-//	@ManyToOne
-//	private PuntiVendita puntoDiEmissione;
+	
 
 	public TitoloDiViaggio(PuntiVendita punto_emissione) {
 		super();

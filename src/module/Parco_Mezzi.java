@@ -1,6 +1,7 @@
 package module;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -21,6 +22,8 @@ public class Parco_Mezzi {
 	@Id
 	private String targa;
 
+	
+	
 	@Column(nullable = false)
 	private Integer capienza;
 
@@ -28,31 +31,34 @@ public class Parco_Mezzi {
 	@Enumerated(EnumType.STRING)
 	private StatusMezzo status;
 
+	
+	
 	// null
-	@Column(name = "inizio_manutenzione")
-	private LocalDate startStatus;
-	@Column(name = "fine_manutenzione")
-	private LocalDate endStatus;
+	@Column(name = "inizio_status")
+	private LocalDateTime startStatus;
+	@Column(name = "fine_status")
+	private LocalDateTime endStatus;
 
+	private Integer countPassanger;
+	
 	public Parco_Mezzi() {
 		super();
 	}
 
-	public Parco_Mezzi(String targa, Integer capienza, StatusMezzo status) {
-		this.targa = targa;
-		this.capienza = capienza;
-		this.status = status;
+	
 
-	}
-
-	public Parco_Mezzi(String targa, Integer capienza, StatusMezzo status, LocalDate startStatus) {
+	public Parco_Mezzi(String targa, Integer capienza, StatusMezzo status, LocalDateTime startStatus,
+			LocalDateTime endStatus) {
 		super();
 		this.targa = targa;
 		this.capienza = capienza;
 		this.status = status;
 		this.startStatus = startStatus;
-		this.endStatus = startStatus.plusDays(5);
+		this.endStatus = endStatus;
+		this.countPassanger =0;
 	}
+
+
 
 	public String getTarga() {
 		return targa;
@@ -84,4 +90,29 @@ public class Parco_Mezzi {
 				+ startStatus + ", endStatus=" + endStatus + "]";
 	}
 
+	public Integer getCountPassanger() {
+		return countPassanger;
+	}
+
+	public void setCountPassanger(Integer countPassanger) {
+		this.countPassanger = countPassanger;
+	}
+
+	public LocalDateTime getStartStatus() {
+		return startStatus;
+	}
+
+	public void setStartStatus(LocalDateTime startStatus) {
+		this.startStatus = startStatus;
+	}
+
+	public LocalDateTime getEndStatus() {
+		return endStatus;
+	}
+
+	public void setEndStatus(LocalDateTime endStatus) {
+		this.endStatus = endStatus;
+	}
+
+	
 }

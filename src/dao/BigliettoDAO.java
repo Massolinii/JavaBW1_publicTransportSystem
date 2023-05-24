@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 
 import javax.persistence.EntityManager;
 
+import Enums.StatusMezzo;
 import module.Biglietto;
+import module.Parco_Mezzi;
 import utils.JpaUtil;
 
 public class BigliettoDAO implements IBigliettoDAO {
@@ -25,14 +27,19 @@ public class BigliettoDAO implements IBigliettoDAO {
 	}
 
 	@Override
-	public void convalida(Integer id) {
+	public void convalida(Integer id, Parco_Mezzi mezzo) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
 			Biglietto bi = em.find(Biglietto.class, id);
+			if(mezzo.getStatus() == StatusMezzo.IN_SERVIZIO) {
 			if (bi != null) {
 				if (bi.getValido()) {
 					bi.setValido(false);
+					bi.setOrario_validazione(LocalDateTime.now());
+					bi.setMezzo(mezzo);
+					mezzo.setCountPassanger(mezzo.getCountPassanger()+1);
+					em.merge(mezzo);
 					em.merge(bi);
 					em.getTransaction().commit();
 					bi.setOrario_validazione(LocalDateTime.now());
@@ -42,7 +49,12 @@ public class BigliettoDAO implements IBigliettoDAO {
 				}
 			} else {
 				System.out.println("Biglietto " + id + " non esiste.");
+			}}
+			else{
+				
+				System.out.println("mezzo fuori servizio");
 			}
+				
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			System.out.println("Errore :  " + e);
@@ -50,5 +62,6 @@ public class BigliettoDAO implements IBigliettoDAO {
 			em.close();
 		}
 	}
+	
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import Enums.StatusMezzo;
 import module.Parco_Mezzi;
 import module.RegistroAttivita;
 import module.Tratta;
@@ -13,14 +14,20 @@ import utils.JpaUtil;
 public class RegistroAttivitaDAO implements IRegistroAttivitaDAO {
 
 	@Override
+	//integer min è il tempo di percorrenza della lunghezza della tratta.
 	public void save(RegistroAttivita attivita, Integer min) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
-			em.getTransaction().begin();
-			attivita.setTempoEffettivo(min);
-			em.persist(attivita);
-			em.getTransaction().commit();
-			System.out.println("attivita salvata!");
+			if (attivita.getMezzo().getStatus()==StatusMezzo.IN_SERVIZIO) {
+				em.getTransaction().begin();
+				attivita.setTempoEffettivo(min);
+				em.persist(attivita);
+				
+				em.getTransaction().commit();
+				System.out.println("attivita salvata!");
+			}else {
+				System.out.println("il mezzo: ["+attivita.getMezzo().getTarga()+"] fuori servizio o in manutenzione!");
+			}
 		} catch (Exception e) {
 			System.out.println("Errore :  " + e);
 			em.getTransaction().rollback();
