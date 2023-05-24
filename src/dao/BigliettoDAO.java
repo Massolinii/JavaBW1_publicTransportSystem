@@ -44,6 +44,7 @@ public class BigliettoDAO implements IBigliettoDAO {
 				System.out.println("Biglietto " + id + " non esiste.");
 			}
 		} catch (Exception e) {
+			em.getTransaction().rollback();
 			System.out.println("Errore :  " + e);
 		} finally {
 			em.close();

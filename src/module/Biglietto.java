@@ -2,12 +2,11 @@ package module;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Entity
-@Table
-//@DiscriminatorValue(value = "biglietto")
+@DiscriminatorValue(value = "biglietto")
 public class Biglietto extends TitoloDiViaggio {
 
 	private LocalDateTime orario_validazione;
