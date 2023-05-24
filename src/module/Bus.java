@@ -1,7 +1,17 @@
 package module;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+@DiscriminatorValue(value = "bus")
 public class Bus extends Mezzo {
 	
-	Integer capienza = 2;
+	
+	@Id
+	private String targa;
+	
+	
 	
 }
