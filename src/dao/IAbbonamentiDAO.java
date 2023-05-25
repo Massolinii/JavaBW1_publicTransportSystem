@@ -8,7 +8,7 @@ public interface IAbbonamentiDAO {
 	// Metodi Crud
 	public void save(Abbonamento a);
 
-	public void delete(Abbonamento a);
+	public void delete(Integer id);
 
 	public void update(Abbonamento a);
 

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import Enums.StatusMezzo;
 import module.Biglietto;
@@ -25,6 +26,75 @@ public class BigliettoDAO implements IBigliettoDAO {
 		} finally {
 			em.close();
 		}
+	}
+
+	@Override
+	public void delete(Integer id) {
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Biglietto b = em.find(Biglietto.class, id);
+			em.remove(b);
+			em.getTransaction().commit();
+			System.out.println("Biglietto[" + id + "] rimosso nel DB!");
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore nel rimovere il biglietto nel DB." + e);
+		} finally {
+			em.close();
+		}
+
+	}
+
+	@Override
+	public void update(Biglietto bi) {
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			em.merge(bi);
+			em.getTransaction().commit();
+			System.out.println("Biglietto[" + bi.getBiglietto_id() + "] rimosso nel DB!");
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore nel modificare il biglietto nel DB." + e);
+		} finally {
+			em.close();
+		}
+	}
+
+	@Override
+	public Biglietto getById(Integer id) {
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Biglietto b = em.find(Biglietto.class, id);
+			em.getTransaction().commit();
+			System.out.println("Biglietto[" + b.getBiglietto_id() + "] trovato nel DB!");
+			return b;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore nel modificare il biglietto nel DB." + e);
+		} finally {
+			em.close();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Biglietto> getAll() {
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Query q = em.createNamedQuery("biglietto.getAll");
+			List<Biglietto> list = q.getResultList();
+			return list;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore nella modifica del Tessera nel DB." + e);
+		} finally {
+			em.close();
+		}
+		return null;
 	}
 
 	@Override
@@ -62,30 +132,6 @@ public class BigliettoDAO implements IBigliettoDAO {
 		} finally {
 			em.close();
 		}
-	}
-
-	@Override
-	public void delete(Biglietto bi) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void update(Biglietto bi) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Biglietto getById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Biglietto> getAll() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

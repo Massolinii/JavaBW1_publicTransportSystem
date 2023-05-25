@@ -5,9 +5,15 @@ import java.util.List;
 import module.Tratta;
 
 public interface ITrattaDAO {
+	// Metodi Crud
 	public void save(Tratta t);
 
-	public void update(Integer id);
+	public void delete(Integer id);
 
-	public List<Tratta> getAllTratte();
+	public void update(Tratta t);
+
+	public Tratta getById(Integer id);
+
+	public List<Tratta> getAll();
+
 }

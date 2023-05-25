@@ -143,10 +143,11 @@ public class Main {
 		RegistroAttivita a1 = new RegistroAttivita(tram1, tratta3, 20);
 		RegistroAttivita a2 = new RegistroAttivita(tram1, tratta3, 25);
 		RegistroAttivita a3 = new RegistroAttivita(tram1, tratta3, 15);
-		RegistroAttivita a7 = new RegistroAttivita(tram3, tratta3, 7);
 		RegistroAttivita a4 = new RegistroAttivita(bus1, tratta2, 5);
 		RegistroAttivita a5 = new RegistroAttivita(bus1, tratta2, 9);
 		RegistroAttivita a6 = new RegistroAttivita(bus1, tratta2, 13);
+		// fuori servizio
+		RegistroAttivita a7 = new RegistroAttivita(tram3, tratta3, 7);
 
 		registroAttivitaDAO.save(a1);
 		registroAttivitaDAO.save(a2);
@@ -156,10 +157,27 @@ public class Main {
 		registroAttivitaDAO.save(a6);
 		registroAttivitaDAO.save(a7);
 		// ----------------------------------------
-		bigliettoDAO.vidimazione(1, bus3);
-		bigliettoDAO.vidimazione(2, bus1);
 //		List<RegistroAttivita> list = registroAttivitaDAO.calcolaCorseByMezzo("FG567SB", 3);
 //		list.forEach(e -> System.out.println(e));
+
+//		tesseraDAO.getAll().forEach(e -> System.out.println(e));
+//		tesseraDAO.delete(4);
+//		tess3.setCognome("cambiato");
+//		tesseraDAO.update(tess3);
+//		tesseraDAO.getAll().forEach(e -> System.out.println(e));
+
+//		bigliettoDAO.vidimazione(1, bus3);
+//		bigliettoDAO.vidimazione(2, bus1);
+//		bigliettoDAO.delete(3);
+//		bigliettoDAO.getAll().forEach(e -> System.out.println(e));
+
+		parcoMezziDao.delete("CF654AW");
+		parcoMezziDao.getAll().forEach(e -> System.out.println(e));
+		parcoMezziDao.getInManu().forEach(e -> System.out.println(e));
+		parcoMezziDao.getInServizio().forEach(e -> System.out.println(e));
+
+		trattaDAO.getAll().forEach(e -> System.out.println(e));
+
 	}
 
 }

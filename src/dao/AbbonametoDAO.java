@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import Enums.DurataAbbonamento;
 import module.Abbonamento;
@@ -34,6 +35,77 @@ public class AbbonametoDAO implements IAbbonamentiDAO {
 			em.close();
 		}
 
+	}
+
+	@Override
+	public void delete(Integer id) {
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Abbonamento a = em.find(Abbonamento.class, id);
+			em.remove(a);
+			em.getTransaction().commit();
+			System.out.println("Abbonamento[" + a.getBiglietto_id() + "] eliminata nel DB!");
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore nel rimuovore dell' Abbonamento nel DB." + e);
+		} finally {
+			em.close();
+		}
+
+	}
+
+	@Override
+	public void update(Abbonamento a) {
+
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			em.merge(a);
+			em.getTransaction().commit();
+			System.out.println("Abbonamento[" + a.getBiglietto_id() + "] modificata nel DB!");
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore nella modifica dell' Abbonamento nel DB." + e);
+		} finally {
+			em.close();
+		}
+
+	}
+
+	@Override
+	public Abbonamento getById(Integer id) {
+
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Abbonamento a = em.find(Abbonamento.class, id);
+			em.getTransaction().commit();
+			return a;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore nel find dell'Abbonamento nel DB." + e);
+		} finally {
+			em.close();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Abbonamento> getAll() {
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Query q = em.createNamedQuery("tessera.getAll");
+			List<Abbonamento> list = q.getResultList();
+			return list;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore nella modifica del Tessera nel DB." + e);
+		} finally {
+			em.close();
+		}
+		return null;
 	}
 
 	@Override
@@ -114,30 +186,6 @@ public class AbbonametoDAO implements IAbbonamentiDAO {
 		} else {
 			a.setScadenza_abbonameto(rinnovo ? LocalDateTime.now().plusDays(7) : a.getData_emissione().plusDays(7));
 		}
-	}
-
-	@Override
-	public void delete(Abbonamento a) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void update(Abbonamento a) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Abbonamento getById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Abbonamento> getAll() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

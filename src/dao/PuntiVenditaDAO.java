@@ -72,7 +72,7 @@ public class PuntiVenditaDAO implements IPuntoVenditaDAO {
 	}
 
 	@Override
-	public void delete(PuntiVendita pv) {
+	public void delete(Integer id) {
 		// TODO Auto-generated method stub
 
 	}

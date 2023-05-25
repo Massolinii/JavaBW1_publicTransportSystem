@@ -10,7 +10,7 @@ public interface IBigliettoDAO {
 	// Metodi Crud
 	public void save(Biglietto bi);
 
-	public void delete(Biglietto bi);
+	public void delete(Integer id);
 
 	public void update(Biglietto bi);
 

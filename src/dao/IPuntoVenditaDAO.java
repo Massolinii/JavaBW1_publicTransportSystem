@@ -10,7 +10,7 @@ public interface IPuntoVenditaDAO {
 	// Metodi Crud
 	public void save(PuntiVendita pv);
 
-	public void delete(PuntiVendita pv);
+	public void delete(Integer id);
 
 	public void update(PuntiVendita pv);
 

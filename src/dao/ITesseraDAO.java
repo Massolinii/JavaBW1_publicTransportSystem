@@ -9,14 +9,15 @@ public interface ITesseraDAO {
 	// Metodi Crud
 	public void save(Tessera t);
 
-	public void delete(Tessera t);
+	public void delete(Integer id);
 
-	public void update(Integer id);
+	public void update(Tessera t);
 
 	public Tessera getById(Integer id);
 
 	public List<Tessera> getAll();
 
+	// Metodi
 	public void updateAbb(Integer id, Abbonamento abb);
 
 	public void checkAbb(Integer id);

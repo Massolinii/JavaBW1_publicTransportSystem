@@ -11,9 +11,9 @@ public interface IRegistroAttivitaDAO {
 	// Metodi Crud
 	public void save(RegistroAttivita attivita);
 
-	public void delete(RegistroAttivita attivita);
+	public void delete(Integer id);
 
-	public void update(Integer id);
+	public void update(RegistroAttivita attivita);
 
 	public RegistroAttivita getById(Integer id);
 

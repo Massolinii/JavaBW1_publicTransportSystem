@@ -38,11 +38,6 @@ public class RegistroAttivitaDAO implements IRegistroAttivitaDAO {
 	}
 
 	@Override
-	public void update(Integer id) {
-
-	}
-
-	@Override
 	public List<RegistroAttivita> calcolaCorseByMezzo(String targaMezzo, Integer idTratta) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
@@ -71,7 +66,7 @@ public class RegistroAttivitaDAO implements IRegistroAttivitaDAO {
 	}
 
 	@Override
-	public void delete(RegistroAttivita attivita) {
+	public void delete(Integer id) {
 		// TODO Auto-generated method stub
 
 	}
@@ -86,6 +81,12 @@ public class RegistroAttivitaDAO implements IRegistroAttivitaDAO {
 	public List<RegistroAttivita> getAll() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void update(RegistroAttivita attivita) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

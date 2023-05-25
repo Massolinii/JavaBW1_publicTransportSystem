@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import module.Abbonamento;
 import module.Tessera;
@@ -28,6 +29,77 @@ public class TesseraDAO implements ITesseraDAO {
 			em.close();
 		}
 
+	}
+
+	@Override
+	public void delete(Integer id) {
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Tessera t = em.find(Tessera.class, id);
+			em.remove(t);
+			em.getTransaction().commit();
+			System.out.println("Tessera[" + t.getTessera_id() + "] eliminata nel DB!");
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore nel rimuovore del Tessera nel DB." + e);
+		} finally {
+			em.close();
+		}
+
+	}
+
+	@Override
+	public void update(Tessera t) {
+
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			em.merge(t);
+			em.getTransaction().commit();
+			System.out.println("Tessera[" + t.getTessera_id() + "] modificata nel DB!");
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore nella modifica del Tessera nel DB." + e);
+		} finally {
+			em.close();
+		}
+
+	}
+
+	@Override
+	public Tessera getById(Integer id) {
+
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Tessera t = em.find(Tessera.class, id);
+			em.getTransaction().commit();
+			return t;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore nel find della Tessera nel DB." + e);
+		} finally {
+			em.close();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Tessera> getAll() {
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Query q = em.createNamedQuery("tessera.getAll");
+			List<Tessera> list = q.getResultList();
+			return list;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore nella modifica del Tessera nel DB." + e);
+		} finally {
+			em.close();
+		}
+		return null;
 	}
 
 	@Override
@@ -60,7 +132,7 @@ public class TesseraDAO implements ITesseraDAO {
 				abbDAO.checkScadenza(abb.getBiglietto_id());
 
 			} else {
-				System.out.println("non è presente alcun abbonamento colleato alla tessera n: " + id_tessera);
+				System.out.println("non è presente alcun abbonamento collegato alla tessera n: " + id_tessera);
 			}
 
 			em.getTransaction().commit();
@@ -128,30 +200,6 @@ public class TesseraDAO implements ITesseraDAO {
 			em.close();
 		}
 
-	}
-
-	@Override
-	public void delete(Tessera t) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void update(Integer id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Tessera getById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Tessera> getAll() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
