@@ -159,25 +159,6 @@ public class Main {
 		// ----------------------------------------
 //		List<RegistroAttivita> list = registroAttivitaDAO.calcolaCorseByMezzo("FG567SB", 3);
 //		list.forEach(e -> System.out.println(e));
-
-//		tesseraDAO.getAll().forEach(e -> System.out.println(e));
-//		tesseraDAO.delete(4);
-//		tess3.setCognome("cambiato");
-//		tesseraDAO.update(tess3);
-//		tesseraDAO.getAll().forEach(e -> System.out.println(e));
-
-//		bigliettoDAO.vidimazione(1, bus3);
-//		bigliettoDAO.vidimazione(2, bus1);
-//		bigliettoDAO.delete(3);
-//		bigliettoDAO.getAll().forEach(e -> System.out.println(e));
-
-		parcoMezziDao.delete("CF654AW");
-		parcoMezziDao.getAll().forEach(e -> System.out.println(e));
-		parcoMezziDao.getInManu().forEach(e -> System.out.println(e));
-		parcoMezziDao.getInServizio().forEach(e -> System.out.println(e));
-
-		trattaDAO.getAll().forEach(e -> System.out.println(e));
-
 	}
 
 }

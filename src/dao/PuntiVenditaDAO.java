@@ -9,7 +9,6 @@ import javax.persistence.Query;
 
 import Enums.FunzioneDistributore;
 import module.Distributore;
-import module.Parco_Mezzi;
 import module.PuntiVendita;
 import module.Rivenditore;
 import utils.JpaUtil;
@@ -87,6 +86,7 @@ public class PuntiVenditaDAO implements IPuntoVenditaDAO {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<PuntiVendita> getAllPuntiVendita() {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         List<PuntiVendita> listaPuntiVendita = null;
@@ -102,13 +102,9 @@ public class PuntiVenditaDAO implements IPuntoVenditaDAO {
                     System.out.println(i+ "." + pv.toString());
                     i++;
                 }
-
             } else {
-
             }
             em.getTransaction().commit();
-
-
         } catch (Exception e) {
             em.getTransaction().rollback();
             System.out.println("Errore nell'ottenimento dei punti vendita!" + e);
@@ -146,18 +142,10 @@ public class PuntiVenditaDAO implements IPuntoVenditaDAO {
                     System.out.println("Hai comprato il biglietto!");
                 }
             }
-
         } else {
             System.out.println("Non ci sono punti vendita disponibili!");
-
         }
-
-
+        sc.close();
     }
 
-	@Override
-	public List<Parco_Mezzi> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
