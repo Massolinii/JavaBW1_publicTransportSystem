@@ -156,12 +156,14 @@ public class Main {
 		registroAttivitaDAO.save(a6);
 		registroAttivitaDAO.save(a7);
 		// ----------------------------------------
-		bigliettoDAO.vidimazione(1, bus3);
-		bigliettoDAO.vidimazione(2, bus1);
+//		bigliettoDAO.vidimazione(1, bus3);
+//		bigliettoDAO.vidimazione(2, bus1);
 //		List<RegistroAttivita> list = registroAttivitaDAO.calcolaCorseByMezzo("FG567SB", 3);
 //		list.forEach(e -> System.out.println(e));
-		
-		puntiVenditaDAO.acquistaBiglietto();;
-		}
+
+		puntiVenditaDAO.selezionaPuntoVendita();
+		;
+		;
+	}
 
 }
