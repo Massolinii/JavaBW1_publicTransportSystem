@@ -2,7 +2,6 @@ package dao;
 
 import java.util.List;
 
-import module.Parco_Mezzi;
 import module.PuntiVendita;
 
 public interface IPuntoVenditaDAO {
@@ -16,7 +15,9 @@ public interface IPuntoVenditaDAO {
 
 	public PuntiVendita getById(Integer id);
 
-	public List<Parco_Mezzi> getAll();
+	public List<PuntiVendita> getAllPuntiVendita();
+	
+	public void acquistaBiglietto();
 
 	// Metodo specifico
 	public void updateStatus(Integer id);

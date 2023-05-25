@@ -160,6 +160,8 @@ public class Main {
 		bigliettoDAO.vidimazione(2, bus1);
 //		List<RegistroAttivita> list = registroAttivitaDAO.calcolaCorseByMezzo("FG567SB", 3);
 //		list.forEach(e -> System.out.println(e));
-	}
+		
+		puntiVenditaDAO.acquistaBiglietto();;
+		}
 
 }
