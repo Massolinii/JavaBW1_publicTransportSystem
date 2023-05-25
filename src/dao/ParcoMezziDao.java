@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import Enums.StatusMezzo;
@@ -47,6 +49,30 @@ public class ParcoMezziDao implements IParcoMezziDao {
 			em.close();
 		}
 
+	}
+
+	@Override
+	public void delete(Parco_Mezzi mezzo) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void update(Parco_Mezzi mezzo) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Parco_Mezzi getById(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Parco_Mezzi> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

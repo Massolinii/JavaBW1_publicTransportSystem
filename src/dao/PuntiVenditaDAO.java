@@ -1,9 +1,12 @@
 package dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import Enums.FunzioneDistributore;
 import module.Distributore;
+import module.Parco_Mezzi;
 import module.PuntiVendita;
 import utils.JpaUtil;
 
@@ -66,6 +69,24 @@ public class PuntiVenditaDAO implements IPuntoVenditaDAO {
 		}
 		return null;
 
+	}
+
+	@Override
+	public void delete(PuntiVendita pv) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void update(PuntiVendita pv) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<Parco_Mezzi> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

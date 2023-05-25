@@ -2,6 +2,7 @@ package dao;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
@@ -113,6 +114,30 @@ public class AbbonametoDAO implements IAbbonamentiDAO {
 		} else {
 			a.setScadenza_abbonameto(rinnovo ? LocalDateTime.now().plusDays(7) : a.getData_emissione().plusDays(7));
 		}
+	}
+
+	@Override
+	public void delete(Abbonamento a) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void update(Abbonamento a) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Abbonamento getById(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Abbonamento> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

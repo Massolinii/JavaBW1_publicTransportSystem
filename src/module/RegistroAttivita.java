@@ -24,8 +24,9 @@ public class RegistroAttivita {
 	@OneToOne
 	private Tratta tratta;
 
-	public RegistroAttivita(Parco_Mezzi mezzo, Tratta tratta) {
+	public RegistroAttivita(Parco_Mezzi mezzo, Tratta tratta, Integer tempoEffettivo) {
 		super();
+		this.tempoEffettivo = tempoEffettivo;
 		this.mezzo = mezzo;
 		this.tratta = tratta;
 	}

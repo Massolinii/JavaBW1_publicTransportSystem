@@ -1,6 +1,7 @@
 package dao;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
@@ -127,6 +128,30 @@ public class TesseraDAO implements ITesseraDAO {
 			em.close();
 		}
 
+	}
+
+	@Override
+	public void delete(Tessera t) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void update(Integer id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Tessera getById(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Tessera> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
