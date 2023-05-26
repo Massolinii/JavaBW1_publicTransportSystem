@@ -52,7 +52,8 @@ public class Main {
 			 * BIGLIETTI bigliettoDAO.save(b1); bigliettoDAO.convalida(1);
 			 * bigliettoDAO.convalida(1); bigliettoDAO.convalida(2);
 			 */
-			start();
+
+			puntiVenditaDAO.puntiVenditaIntefaccia();
 //			ABBONAMENTI
 //			abbonamentoDAO.save(a1);
 //			abbonamentoDAO.checkScadenza(1);
@@ -161,9 +162,6 @@ public class Main {
 //		List<RegistroAttivita> list = registroAttivitaDAO.calcolaCorseByMezzo("FG567SB", 3);
 //		list.forEach(e -> System.out.println(e));
 
-		puntiVenditaDAO.selezionaPuntoVendita();
-		;
-		;
 	}
 
 }

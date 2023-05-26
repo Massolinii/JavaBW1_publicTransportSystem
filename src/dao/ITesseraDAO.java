@@ -21,7 +21,5 @@ public interface ITesseraDAO {
 
 	public void checkAbb(Integer id);
 
-	public void checkTessera(Integer id);
-
-	public void rinnovoTessera(Integer id);
+	public boolean rinnovoTessera(Integer id);
 }

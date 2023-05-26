@@ -39,10 +39,10 @@ public class TesseraDAO implements ITesseraDAO {
 			t.setAbbonamento(abb);
 			em.merge(t);
 			em.getTransaction().commit();
-			System.out.println("Tessera aggiunto nel DB!");
+			System.out.println("\nTessera aggiornata con il nuovo abbonamento nel DB!");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
-			System.out.println("Errore nell'aggiunta del Tessera nel DB." + e);
+			System.out.println("Errore nell'update dell'abbonamento del Tessera nel DB." + e);
 		} finally {
 			em.close();
 		}
@@ -75,13 +75,8 @@ public class TesseraDAO implements ITesseraDAO {
 	}
 
 	@Override
-	public void checkTessera(Integer id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void rinnovoTessera(Integer id) {
+	public boolean rinnovoTessera(Integer id) {
+		boolean validita = false;
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 
@@ -91,6 +86,7 @@ public class TesseraDAO implements ITesseraDAO {
 				// compare le 2 date se la prima e minore return -> -1
 				if (t.getData_scadenza().compareTo(LocalDate.now()) > 0) {
 					System.out.println("Tessera valida ancora fino a " + t.getData_scadenza());
+					validita = true;
 				} else {
 					System.out.println("Tessera scaduta!!");
 					System.out.println("vuoi rinnovare la tessera " + id);
@@ -111,6 +107,7 @@ public class TesseraDAO implements ITesseraDAO {
 						em.merge(t);
 						em.getTransaction().commit();
 						System.out.println("Tessera id: " + id + " rinnovata");
+						validita = true;
 						break;
 					case 2:
 						System.out.println("Operazione annullata");
@@ -127,7 +124,7 @@ public class TesseraDAO implements ITesseraDAO {
 		} finally {
 			em.close();
 		}
-
+		return validita;
 	}
 
 	@Override
@@ -144,7 +141,19 @@ public class TesseraDAO implements ITesseraDAO {
 
 	@Override
 	public Tessera getById(Integer id) {
-		// TODO Auto-generated method stub
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Tessera t = em.find(Tessera.class, id);
+			em.getTransaction().commit();
+			return t;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore  Tessera  non presente nel DB." + e);
+		} finally {
+			em.close();
+		}
+
 		return null;
 	}
 

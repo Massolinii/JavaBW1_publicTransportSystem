@@ -18,7 +18,7 @@ public class BigliettoDAO implements IBigliettoDAO {
 			em.getTransaction().begin();
 			em.persist(bi);
 			em.getTransaction().commit();
-			System.out.println("Biglietto aggiunto nel DB!");
+//			System.out.println("Biglietto aggiunto nel DB!");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			System.out.println("Errore nell'aggiunta del biglietto nel DB." + e);

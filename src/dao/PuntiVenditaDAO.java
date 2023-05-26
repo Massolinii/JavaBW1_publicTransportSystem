@@ -7,15 +7,20 @@ import java.util.Scanner;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import Enums.DurataAbbonamento;
 import Enums.FunzioneDistributore;
+import module.Abbonamento;
 import module.Biglietto;
 import module.Distributore;
 import module.PuntiVendita;
 import module.Rivenditore;
+import module.Tessera;
 import utils.JpaUtil;
 
 public class PuntiVenditaDAO implements IPuntoVenditaDAO {
 	IBigliettoDAO bigliettoDAO = new BigliettoDAO();
+	ITesseraDAO tesseraDAO = new TesseraDAO();
+	IAbbonamentiDAO abbonamentoDAO = new AbbonametoDAO();
 	Scanner sc = new Scanner(System.in);
 
 	@Override
@@ -98,15 +103,7 @@ public class PuntiVenditaDAO implements IPuntoVenditaDAO {
 			em.getTransaction().begin();
 			Query query = em.createQuery("SELECT p FROM PuntiVendita p");
 			listaPuntiVendita = query.getResultList();
-			if (listaPuntiVendita != null) {
-				int i = 1;
-				System.out.println("Lista punti vendita:");
-				for (PuntiVendita pv : listaPuntiVendita) {
-					System.out.println(i + "." + pv.toString());
-					i++;
-				}
-			} else {
-			}
+
 			em.getTransaction().commit();
 		} catch (Exception e) {
 			em.getTransaction().rollback();
@@ -115,6 +112,155 @@ public class PuntiVenditaDAO implements IPuntoVenditaDAO {
 			em.close();
 		}
 		return listaPuntiVendita;
+	}
+
+	public void puntiVenditaIntefaccia() {
+
+		Scanner scanner = new Scanner(System.in);
+
+		// Inizializza i punti vendita
+
+		// Variabili per le scelte dell'utente
+		int sceltaPuntoVendita = 0;
+		int sceltaOperazione = 0;
+		int sceltaDurataAbbonamento = 0;
+
+		boolean continua = true;
+		while (continua) {
+			// Mostra l'elenco dei punti vendita
+			System.out.println("Scegli un punto vendita:");
+			for (int i = 0; i < getAllPuntiVendita().size(); i++) {
+				System.out.println((i + 1) + ". " + getAllPuntiVendita().get(i));
+			}
+
+			// Leggi la scelta dell'utente
+			sceltaPuntoVendita = scanner.nextInt();
+
+			// Verifica se la scelta è valida
+			if (sceltaPuntoVendita < 1 || sceltaPuntoVendita > getAllPuntiVendita().size()) {
+
+				System.out.println("Scelta non valida. Riprova.");
+				continue; // Torna all'inizio del ciclo
+			}
+			PuntiVendita puntoVenditaSelezionato = getAllPuntiVendita().get(sceltaPuntoVendita - 1);
+			if (puntoVenditaSelezionato instanceof Distributore) {
+				Distributore distributoreSelezionato = (Distributore) puntoVenditaSelezionato;
+
+				if (distributoreSelezionato.getFunzione() == FunzioneDistributore.IN_SERVIZIO) {
+					System.out.println("Distributore selezionato in servizio");
+				} else {
+					System.out.println("Distributore selezionato è fuori servizio");
+					continue;
+				}
+			} else {
+				Rivenditore rivenditoreSelezionato = (Rivenditore) puntoVenditaSelezionato;
+				LocalTime orarioAttuale = LocalTime.now();
+				if (orarioAttuale.isBefore(rivenditoreSelezionato.getOrario_apertura())
+						|| orarioAttuale.isAfter(rivenditoreSelezionato.getOrario_chiusura())) {
+					System.out.println("Questo Rivenditore è attualmente chiuso!");
+					continue;
+				} else {
+					System.out.println("Rivenditore selezionato è fuori servizio");
+				}
+			}
+			// Ottieni il punto vendita selezionato
+			PuntiVendita puntoVenditaScelto = getAllPuntiVendita().get(sceltaPuntoVendita - 1);
+			System.out.println("\nHai scelto: " + puntoVenditaScelto);
+
+			// Chiedi se l'utente vuole comprare un biglietto o rinnovare un abbonamento
+			boolean continuaOperazione = true;
+			while (continuaOperazione) {
+				System.out.println("Cosa desideri fare?");
+				System.out.println("1. Comprare un biglietto");
+				System.out.println("2. Rinnovare un abbonamento");
+				System.out.println("3. Cambia punto vendita");
+				sceltaOperazione = scanner.nextInt();
+
+				switch (sceltaOperazione) {
+				case 1:
+					System.out.println("Hai scelto di comprare un biglietto.");
+					// biglietto dao acquisto
+					Biglietto newB = new Biglietto(puntoVenditaScelto);
+					bigliettoDAO.save(newB);
+					System.out.println("Ecco a te il biglietto" + newB);
+					continuaOperazione = false;
+					break;
+
+				case 2:
+					System.out.println("Hai scelto di rinnovare un abbonamento.");
+					// Chiedi il numero della tessera
+					System.out.println("Inserisci il numero della tua tessera:");
+					int numeroTessera = scanner.nextInt();
+					boolean validita = tesseraDAO.rinnovoTessera(numeroTessera);
+
+					// Chiedi se l'utente desidera un abbonamento mensile o settimanale
+					if (validita) {
+						Tessera t = tesseraDAO.getById(numeroTessera);
+						Abbonamento abbTessera = t.getAbbonamento();
+						abbonamentoDAO.checkScadenza(abbTessera.getBiglietto_id());
+						boolean continuaDurataAbbonamento = true;
+						while (continuaDurataAbbonamento) {
+							System.out.println("Scegli la durata dell'abbonamento:");
+							System.out.println("1. Mensile");
+							System.out.println("2. Settimanale");
+							System.out.println("3. Cambia operazione");
+							sceltaDurataAbbonamento = scanner.nextInt();
+
+							switch (sceltaDurataAbbonamento) {
+							case 1:
+								System.out.println("Hai scelto un abbonamento mensile.");
+
+								Abbonamento abbMensile = new Abbonamento(puntoVenditaScelto, DurataAbbonamento.MENSILE);
+								abbonamentoDAO.save(abbMensile);
+								tesseraDAO.updateAbb(numeroTessera, abbMensile);
+								System.out.println(tesseraDAO.getById(numeroTessera));
+								continuaDurataAbbonamento = false;
+								break;
+
+							case 2:
+								System.out.println("Hai scelto un abbonamento settimanale.");
+								Abbonamento abbSettimanale = new Abbonamento(puntoVenditaScelto,
+										DurataAbbonamento.SETTIMANALE);
+								abbonamentoDAO.save(abbSettimanale);
+								tesseraDAO.updateAbb(numeroTessera, abbSettimanale);
+								System.out.println(tesseraDAO.getById(numeroTessera));
+								continuaDurataAbbonamento = false;
+								break;
+
+							case 3:
+								continuaOperazione = false;
+								continuaDurataAbbonamento = false;
+								break;
+
+							default:
+								System.out.println("Scelta non valida. Riprova.");
+								break;
+							}
+						}
+					} else {
+						System.out.println("non puoi effetuare operazioni con la tessera scaduta!!");
+					}
+
+				case 3:
+					continuaOperazione = false;
+					break;
+
+				default:
+					System.out.println("Scelta non valida. Riprova.");
+					break;
+				}
+			}
+
+			// Chiedi all'utente se desidera continuare
+			System.out.println("_________________________________________________");
+			System.out.println("\nDesideri effettuare un'altra operazione? (Sì/No)");
+			String risposta = scanner.next();
+			if (risposta.equalsIgnoreCase("No")) {
+				continua = false;
+			}
+		}
+
+		scanner.close();
 	}
 
 	public void acquistaBiglietto() {
@@ -226,5 +372,16 @@ public class PuntiVenditaDAO implements IPuntoVenditaDAO {
 				break;
 			}
 		} while (condition);
+	}
+
+	public void printPuntiVendita(List<PuntiVendita> puntiVendita) {
+		System.out.println("Lista punti vendita:");
+		int i = 1;
+		for (PuntiVendita pv : puntiVendita) {
+			System.out.println(i + "." + pv.toString());
+			i++;
+		}
+		System.out.println("Scegli un punto vendita:");
+
 	}
 }

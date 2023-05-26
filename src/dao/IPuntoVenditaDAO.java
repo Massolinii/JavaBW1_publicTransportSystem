@@ -22,6 +22,6 @@ public interface IPuntoVenditaDAO {
 	// Metodo specifico
 	public void updateStatus(Integer id);
 
-	public void selezionaPuntoVendita();
+	public void puntiVenditaIntefaccia();
 
 }

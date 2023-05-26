@@ -25,7 +25,7 @@ public class AbbonametoDAO implements IAbbonamentiDAO {
 			em.getTransaction().begin();
 			em.persist(a);
 			em.getTransaction().commit();
-			System.out.println("Abbonamento aggiunto nel DB!");
+			System.out.println("\nAbbonamento aggiunto nel DB!");
 			System.out.println(a);
 		} catch (Exception e) {
 			em.getTransaction().rollback();
