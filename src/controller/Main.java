@@ -52,7 +52,8 @@ public class Main {
 			 * BIGLIETTI bigliettoDAO.save(b1); bigliettoDAO.convalida(1);
 			 * bigliettoDAO.convalida(1); bigliettoDAO.convalida(2);
 			 */
-			start();
+
+			puntiVenditaDAO.puntiVenditaIntefaccia();
 //			ABBONAMENTI
 //			abbonamentoDAO.save(a1);
 //			abbonamentoDAO.checkScadenza(1);
@@ -143,11 +144,10 @@ public class Main {
 		RegistroAttivita a1 = new RegistroAttivita(tram1, tratta3, 20);
 		RegistroAttivita a2 = new RegistroAttivita(tram1, tratta3, 25);
 		RegistroAttivita a3 = new RegistroAttivita(tram1, tratta3, 15);
+		RegistroAttivita a7 = new RegistroAttivita(tram3, tratta3, 7);
 		RegistroAttivita a4 = new RegistroAttivita(bus1, tratta2, 5);
 		RegistroAttivita a5 = new RegistroAttivita(bus1, tratta2, 9);
 		RegistroAttivita a6 = new RegistroAttivita(bus1, tratta2, 13);
-		// fuori servizio
-		RegistroAttivita a7 = new RegistroAttivita(tram3, tratta3, 7);
 
 		registroAttivitaDAO.save(a1);
 		registroAttivitaDAO.save(a2);
@@ -157,8 +157,11 @@ public class Main {
 		registroAttivitaDAO.save(a6);
 		registroAttivitaDAO.save(a7);
 		// ----------------------------------------
+//		bigliettoDAO.vidimazione(1, bus3);
+//		bigliettoDAO.vidimazione(2, bus1);
 //		List<RegistroAttivita> list = registroAttivitaDAO.calcolaCorseByMezzo("FG567SB", 3);
 //		list.forEach(e -> System.out.println(e));
+
 	}
 
 }

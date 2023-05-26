@@ -16,10 +16,12 @@ public interface IPuntoVenditaDAO {
 	public PuntiVendita getById(Integer id);
 
 	public List<PuntiVendita> getAllPuntiVendita();
-	
+
 	public void acquistaBiglietto();
 
 	// Metodo specifico
 	public void updateStatus(Integer id);
+
+	public void puntiVenditaIntefaccia();
 
 }

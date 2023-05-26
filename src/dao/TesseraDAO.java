@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import module.Abbonamento;
 import module.Tessera;
@@ -32,77 +31,6 @@ public class TesseraDAO implements ITesseraDAO {
 	}
 
 	@Override
-	public void delete(Integer id) {
-		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			Tessera t = em.find(Tessera.class, id);
-			em.remove(t);
-			em.getTransaction().commit();
-			System.out.println("Tessera[" + t.getTessera_id() + "] eliminata nel DB!");
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println("Errore nel rimuovore del Tessera nel DB." + e);
-		} finally {
-			em.close();
-		}
-
-	}
-
-	@Override
-	public void update(Tessera t) {
-
-		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			em.merge(t);
-			em.getTransaction().commit();
-			System.out.println("Tessera[" + t.getTessera_id() + "] modificata nel DB!");
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println("Errore nella modifica del Tessera nel DB." + e);
-		} finally {
-			em.close();
-		}
-
-	}
-
-	@Override
-	public Tessera getById(Integer id) {
-
-		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			Tessera t = em.find(Tessera.class, id);
-			em.getTransaction().commit();
-			return t;
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println("Errore nel find della Tessera nel DB." + e);
-		} finally {
-			em.close();
-		}
-		return null;
-	}
-
-	@Override
-	public List<Tessera> getAll() {
-		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			Query q = em.createNamedQuery("tessera.getAll");
-			List<Tessera> list = q.getResultList();
-			return list;
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println("Errore nella modifica del Tessera nel DB." + e);
-		} finally {
-			em.close();
-		}
-		return null;
-	}
-
-	@Override
 	public void updateAbb(Integer id, Abbonamento abb) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
@@ -111,10 +39,10 @@ public class TesseraDAO implements ITesseraDAO {
 			t.setAbbonamento(abb);
 			em.merge(t);
 			em.getTransaction().commit();
-			System.out.println("Tessera aggiunto nel DB!");
+			System.out.println("\nTessera aggiornata con il nuovo abbonamento nel DB!");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
-			System.out.println("Errore nell'aggiunta del Tessera nel DB." + e);
+			System.out.println("Errore nell'update dell'abbonamento del Tessera nel DB." + e);
 		} finally {
 			em.close();
 		}
@@ -132,7 +60,7 @@ public class TesseraDAO implements ITesseraDAO {
 				abbDAO.checkScadenza(abb.getBiglietto_id());
 
 			} else {
-				System.out.println("non è presente alcun abbonamento collegato alla tessera n: " + id_tessera);
+				System.out.println("non è presente alcun abbonamento colleato alla tessera n: " + id_tessera);
 			}
 
 			em.getTransaction().commit();
@@ -147,13 +75,8 @@ public class TesseraDAO implements ITesseraDAO {
 	}
 
 	@Override
-	public void checkTessera(Integer id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void rinnovoTessera(Integer id) {
+	public boolean rinnovoTessera(Integer id) {
+		boolean validita = false;
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 
@@ -163,6 +86,7 @@ public class TesseraDAO implements ITesseraDAO {
 				// compare le 2 date se la prima e minore return -> -1
 				if (t.getData_scadenza().compareTo(LocalDate.now()) > 0) {
 					System.out.println("Tessera valida ancora fino a " + t.getData_scadenza());
+					validita = true;
 				} else {
 					System.out.println("Tessera scaduta!!");
 					System.out.println("vuoi rinnovare la tessera " + id);
@@ -183,6 +107,7 @@ public class TesseraDAO implements ITesseraDAO {
 						em.merge(t);
 						em.getTransaction().commit();
 						System.out.println("Tessera id: " + id + " rinnovata");
+						validita = true;
 						break;
 					case 2:
 						System.out.println("Operazione annullata");
@@ -199,7 +124,43 @@ public class TesseraDAO implements ITesseraDAO {
 		} finally {
 			em.close();
 		}
+		return validita;
+	}
 
+	@Override
+	public void delete(Tessera t) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void update(Integer id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Tessera getById(Integer id) {
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Tessera t = em.find(Tessera.class, id);
+			em.getTransaction().commit();
+			return t;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore  Tessera  non presente nel DB." + e);
+		} finally {
+			em.close();
+		}
+
+		return null;
+	}
+
+	@Override
+	public List<Tessera> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

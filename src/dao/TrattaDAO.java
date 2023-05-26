@@ -60,6 +60,7 @@ public class TrattaDAO implements ITrattaDAO {
 				System.out.println("La tratta [" + id + "] non esiste.");
 			}
 		} catch (Exception e) {
+
 			System.out.println("Errore :  " + e);
 		} finally {
 			em.close();
